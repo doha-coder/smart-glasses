@@ -181,16 +181,15 @@ background-clip: text;
   align-items: center;
   gap: 20px;
 }
-/* تكبير الخط في القائمة العادية (للاب توب) */
 @media (min-width: 769px) {
     .nav-links a {
-        font-size: 1.1rem; /* تكبير الخط */
+        font-size: 1.1rem; 
         font-weight: 500;
         padding: 16px;
     }
     
     .nav-links {
-        gap: 25px; /* مسافة أكبر بين العناصر */
+        gap: 25px; 
     }
 }
 
@@ -198,8 +197,8 @@ background-clip: text;
 /* --- Theme Toggle --- */
 .theme-toggle {
   background: transparent;
-   box-shadow: none;      /* remove any glow */
-  padding: 0;            /* remove inner space */
+   box-shadow: none;      
+  padding: 0;            
   font-size: 22px; 
   border: none;
   color: var(--text);
@@ -215,11 +214,11 @@ background-clip: text;
   font-size: 20px;
 }
 .theme-toggle span {
-  display: none; /* نخفي النص */
+  display: none; 
 }
 
 .theme-toggle::after {
-  content: "🌙"; /* أو ☀️ لو عايزة */
+  content: "🌙"; 
 }
 .theme-toggle:hover {
   background: var(--accent);
@@ -638,7 +637,7 @@ footer {
         box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
         z-index: 999;
         overflow-y: auto;
-        display: flex !important; /* تأكيد الظهور */
+        display: flex !important; 
     }
 
     /* Staggered animation for mobile */
@@ -790,7 +789,7 @@ footer {
 @media (max-width: 768px) {
   .navbar .container {
     display: flex;
-    flex-direction: row; /* keep items in one line */
+    flex-direction: row; 
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
