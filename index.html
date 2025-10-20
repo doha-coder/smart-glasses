@@ -5,34 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VynAura - Smart Glasses | AI Meets Reality</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body data-theme="light">
-
-<!-- Navbar -->
 <nav class="navbar">
   <div class="container">
     <a href="#" class="logo">VynAura</a>
-    <i class="fa-solid fa-eye"></i>
-
+    
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#download">Download</a></li>
       <li><a href="#steps">How It Works</a></li>
+      <!-- نضيف زر Login -->
+      <li><a href="login.html" class="login-btn">Sign In</a></li>
     </ul>
+    
     <div class="nav-right">
-            <button class="theme-toggle" aria-label="Toggle theme">
-                <span>Theme</span>
-            </button>
-            <button class="menu-toggle" aria-label="Toggle menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-        </div>
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <input type="checkbox" name="checkbox" class="switch">
+      </button>
+      <button class="menu-toggle" aria-label="Toggle menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
   </div>
 </nav>
+
+<div class="nav-overlay"></div>
 
 <!-- Hero Section -->
 <section class="hero" id="home">
@@ -44,7 +48,55 @@
   </div>
   
 </section>
-
+<section class="product-showcase">
+  <div class="container">
+    <div class="showcase-content">
+      
+       <div class="model-container">
+        <model-viewer 
+          src="models/rayban-glasses.glb"
+          alt="VynAura Smart Glasses"
+          auto-rotate
+          camera-controls
+          ar
+          class="glasses-model">
+        </model-viewer>
+      </div>
+      
+      <div class="feature-explanation">
+        <h2>Meet VynAura Glasses</h2>
+        <p>Experience the future with our cutting-edge smart glasses technology</p>
+        
+        <div class="specs-list">
+          <div class="spec-item">
+            <i class="fas fa-camera"></i>
+            <div>
+              <h4>12MP AI Camera</h4>
+              <span>High-definition with smart processing</span>
+            </div>
+          </div>
+          
+          <div class="spec-item">
+            <i class="fas fa-microphone"></i>
+            <div>
+              <h4>Dual Microphones</h4>
+              <span>Crystal clear voice capture</span>
+            </div>
+          </div>
+          
+          <div class="spec-item">
+            <i class="fas fa-brain"></i>
+            <div>
+              <h4>AI Processor</h4>
+              <span>Real-time intelligent processing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
 <!-- Features Section -->
 <section class="features" id="features">
   <div class="container">
@@ -147,6 +199,7 @@
     <p>Smart Glasses – AI Meets Reality</p>
   </div>
 </footer>
+
 <script src="script.js"></script>
 </body>
 </html>

@@ -1,15 +1,24 @@
-
-// Theme toggle
-const toggleBtn = document.querySelector('.theme-toggle');
-toggleBtn.addEventListener('click', () => {
-  const theme = document.body.getAttribute('data-theme');
-  document.body.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
+// Theme toggle - FIXED VERSION
+const toggleBtn = document.querySelector('.switch');
+toggleBtn.addEventListener('change', () => {
+  const currentTheme = document.body.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  document.body.setAttribute('data-theme', newTheme);
   
-  // Update button text
-  const themeText = toggleBtn.querySelector('span');
-  themeText.textContent = theme === 'dark' ? 'Light' : 'Dark';
+  // Optional: Save theme preference to localStorage
+  localStorage.setItem('theme', newTheme);
 });
 
+// Load saved theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.body.setAttribute('data-theme', savedTheme);
+  
+  // Set switch position based on saved theme
+  if (savedTheme === 'dark') {
+    toggleBtn.checked = true;
+  }
+});
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
   const navbar = document.querySelector('.navbar');
@@ -60,68 +69,85 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         top: targetElement.offsetTop - 80,
         behavior: 'smooth'
       });
+      
+      // Close mobile menu after clicking link
+      if (window.innerWidth <= 768) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+      }
     }
   });
 });
-// Mobile menu toggle (add to your existing JS)
-function initMobileMenu() {
-  // Create mobile menu button
-  const nav = document.querySelector('.navbar .container');
-  const navLinks = document.querySelector('.nav-links');
-  
-  // Only add mobile menu if screen is small
-  if (window.innerWidth <= 768) {
-    // Check if menu button already exists
-    if (!document.querySelector('.menu-toggle')) {
-      const menuToggle = document.createElement('button');
-      menuToggle.className = 'menu-toggle';
-      menuToggle.innerHTML = '☰';
-      menuToggle.style.background = 'transparent';
-      menuToggle.style.border = 'none';
-      menuToggle.style.color = 'var(--text)';
-      menuToggle.style.fontSize = '1.5rem';
-      menuToggle.style.cursor = 'pointer';
-      menuToggle.style.padding = '5px';
-      
-      // Insert before nav links
-      nav.insertBefore(menuToggle, navLinks);
-      
-      // Toggle menu on click
-      menuToggle.addEventListener('click', () => {
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-      });
-      
-      // Initially hide menu on mobile
-      navLinks.style.display = 'none';
-    }
-  } else {
-    // Remove mobile menu button and show links on larger screens
-    const menuToggle = document.querySelector('.menu-toggle');
-    if (menuToggle) {
-      menuToggle.remove();
-    }
-    if (navLinks) {
-      navLinks.style.display = 'flex';
+
+// Enhanced Mobile Menu
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+const navOverlay = document.querySelector('.nav-overlay');
+
+if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+        navOverlay.classList.toggle('active');
+    });
+
+    // Close menu when clicking overlay
+    navOverlay.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        navOverlay.classList.remove('active');
+    });
+
+    // Close menu when clicking links
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('active');
+            navOverlay.classList.remove('active');
+        });
+    });
+}
+// Throttle scroll events for better performance
+function throttle(func, limit) {
+  let inThrottle;
+  return function() {
+    const args = arguments;
+    const context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
     }
   }
 }
 
-// Initialize on load and resize
-window.addEventListener('load', initMobileMenu);
-window.addEventListener('resize', initMobileMenu);
-// Toggle mobile menu
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    menuToggle.classList.toggle('active');
+window.addEventListener('scroll', throttle(() => {
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+}, 100));
+// Add to JavaScript
+window.addEventListener('load', () => {
+  document.body.classList.add('loaded');
 });
-
-// Close menu when clicking on a link
-navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
+// Interaction مع الـ Model
+document.addEventListener('DOMContentLoaded', () => {
+  const modelViewer = document.querySelector('model-viewer');
+  
+  if (modelViewer) {
+    // Auto-rotate smoothly
+    modelViewer.addEventListener('load', () => {
+      modelViewer.autoRotate = true;
+      modelViewer.autoRotateDelay = 0;
     });
+    
+    // Interaction على أجزاء معينة
+    modelViewer.addEventListener('click', (event) => {
+      // هنا حنضيف الكود اللي يحدد إيه الجزء اللي اتداس عليه
+      console.log('Model clicked at:', event.detail.position);
+    });
+  }
 });
