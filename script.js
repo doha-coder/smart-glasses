@@ -28,50 +28,20 @@ window.addEventListener('scroll', () => {
     navbar.classList.remove('scrolled');
   }
 });
-// ===== ENHANCED PARTICLES =====
-function initParticles() {
-  const particlesContainer = document.querySelector('.particles');
-  if (!particlesContainer) return;
 
-  // مسح الـ particles القديمة
-  particlesContainer.innerHTML = '';
-
-  // إنشاء 5 دواير كبيرة بتلف
-  for(let i = 0; i < 5; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    
-    // مواقع عشوائية ولكن منظمة
-    const positions = [
-      { top: '10%', left: '10%' },
-      { top: '70%', left: '80%' },
-      { top: '50%', left: '20%' },
-      { top: '20%', left: '70%' },
-      { top: '80%', left: '30%' }
-    ];
-    
-    particle.style.top = positions[i].top;
-    particle.style.left = positions[i].left;
-    
-    particlesContainer.appendChild(particle);
-  }
-
- 
-  for(let i = 0; i < 15; i++) {
-    const smallParticle = document.createElement('div');
-    smallParticle.classList.add('particle', 'small-particle');
-    smallParticle.style.width = smallParticle.style.height = (Math.random() * 8 + 4) + 'px';
-    smallParticle.style.top = Math.random() * 100 + '%';
-    smallParticle.style.left = Math.random() * 100 + '%';
-    smallParticle.style.animationDuration = (Math.random() * 10 + 5) + 's';
-    smallParticle.style.animationDelay = Math.random() * 5 + 's';
-    smallParticle.style.background = 'var(--accent)';
-    smallParticle.style.border = 'none';
-    smallParticle.style.opacity = '0.3';
-    
-    particlesContainer.appendChild(smallParticle);
-  }
+// Particle generation
+const particlesContainer = document.querySelector('.particles');
+for(let i = 0; i < 80; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  p.style.top = Math.random() * 100 + '%';
+  p.style.left = Math.random() * 100 + '%';
+  p.style.width = p.style.height = Math.random() * 6 + 4 + 'px';
+  p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+  p.style.animationDelay = Math.random() * 5 + 's';
+  particlesContainer.appendChild(p);
 }
+
 // Scroll-triggered animations
 const fadeElements = document.querySelectorAll('.fade-in');
 const observer = new IntersectionObserver((entries) => {
@@ -181,4 +151,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
